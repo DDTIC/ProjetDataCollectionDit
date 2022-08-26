@@ -1,5 +1,5 @@
 import requests
-import json
+
 #BASE_URL = 'http://api.countrylayer.com/v2/'
 #URL = BASE_URL+'all?access_key=ac45601f59458421222964db9544159e'
 URL = 'https://restcountries.com/v2/all'

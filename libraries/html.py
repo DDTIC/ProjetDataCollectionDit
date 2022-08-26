@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 
-from libraries.utils import Utils
-
 BASE_URL = 'DATABASES/data-zIybdmYZoV4QSwgZkFtaB.html'
 
 

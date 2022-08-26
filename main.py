@@ -3,26 +3,39 @@ from libraries.csv import CsvFactory
 from libraries.json import JsonFactory
 from libraries.html import HtmlFactory
 from libraries.dataAll import DataGlobal
-from api.countries import Country
+from bd.connexionBd import Connexion
+from bd.traitementBd import EmployerModel
 
 if __name__ == '__main__':
 
-    ## instanciation des classes de notre librairies
-    csvFactory = CsvFactory
-    jsonFactory = JsonFactory
-    htmlFactory = HtmlFactory
-    dataGlobal = DataGlobal
-
     ## recupération des données csv, json et html
-    dataCsvFactory = csvFactory.main()
-    dataJsonFactory = jsonFactory.main()
-    dataHtmlFactory = htmlFactory.main()
+    dataCsvFactory = CsvFactory.main()
+    dataJsonFactory = JsonFactory.main()
+    dataHtmlFactory = HtmlFactory.main()
 
+    print(Utils.divider())
     ## concatenation des données csv, json et html
     dataAll = Utils.concatenerPlusieursList(dataCsvFactory, dataJsonFactory, dataHtmlFactory)
-    print(Utils.divider())
     #print(dataAll)
+    print(Utils.divider())
 
-    ## Ajout d'une entrée concernant la devise attribuée et d'une entrée contenant la conversion en XOF via les données de la BCEAO
-    dataSalaryXOF = dataGlobal.main(dataAll)
-    print(dataSalaryXOF)
+    ## Recuperation des données issu des traitements sous jacents
+    dataEmployer = DataGlobal.main(dataAll)
+    print(dataEmployer)
+    print(Utils.divider())
+
+    ## Connexion à la base de données
+    conn = Connexion.getConnexion()
+
+    ## Creation de la table employer
+    EmployerModel.createTable(conn)
+
+    ## Inserer les données dans la table employer
+    EmployerModel.inserer(dataEmployer, conn)
+
+    ## Recuperer les données de la table employer
+    dataBd = EmployerModel.recuperer(conn)
+    print(dataBd)
+    print(Utils.divider())
+    conn.close()
+

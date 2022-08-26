@@ -46,16 +46,6 @@ class DataGlobal(object):
         return list(data)
 
     @classmethod
-    def addFlagsPays(cls, data, liste):
-        def pays(x):
-            x['flags'] = Utils \
-                .randomElement(liste, 'flags')
-            return x
-
-        data = map(pays, data)
-        return list(data)
-
-    @classmethod
     def main(cls, data):
         data = cls.addDevise(data)
         listDevise = cls.listDeviseBeceao()

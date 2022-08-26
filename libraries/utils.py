@@ -34,15 +34,4 @@ class Utils(object):
         assert isinstance(liste, list)
         return random.choice(liste)
 
-    '''
-    @classmethod
-    def randomElement(cls, liste, *key):
-        assert isinstance(liste, list)
-        if len(key) == 0:
-            return random.choice(liste)
-        else:
-            for item in key:
-                choix = random.choice(liste)
-                return choix[item]
-    '''
 
