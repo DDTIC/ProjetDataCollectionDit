@@ -1,5 +1,6 @@
 from .utils import Utils
 from scrapping.deviseBeceao import CurrencyScrapper
+from api.countries import Country
 
 class DataGlobal(object):
 
@@ -11,7 +12,7 @@ class DataGlobal(object):
     def addDevise(cls, data):
         def devise(x):
             x['devise'] = Utils \
-                    .randomElement(['Euro', 'Dollar', 'Yen'])
+                    .randomElement(['Euro', 'Dollar us', 'Yen japonais'])
             return x
 
         data = map(devise, data)
@@ -27,7 +28,31 @@ class DataGlobal(object):
                         return x
 
         data = map(convEnXOF, data)
-        data = filter(None, list(data))
+        #data = filter(None, list(data))
+        return list(data)
+
+    @classmethod
+    def addPays(cls, data, liste):
+        def pays(x):
+
+            country = Utils \
+                .randomElement(liste)
+            x['pays'] = country['name']
+            x['flags'] = country['flags']
+
+            return x
+
+        data = map(pays, data)
+        return list(data)
+
+    @classmethod
+    def addFlagsPays(cls, data, liste):
+        def pays(x):
+            x['flags'] = Utils \
+                .randomElement(liste, 'flags')
+            return x
+
+        data = map(pays, data)
         return list(data)
 
     @classmethod
@@ -35,7 +60,9 @@ class DataGlobal(object):
         data = cls.addDevise(data)
         listDevise = cls.listDeviseBeceao()
         data = cls.addConversionXof(listDevise, data)
+        listeCountries = Country.main()
 
+        data = cls.addPays(data, listeCountries)
         return data
 
 
