@@ -20,3 +20,16 @@ class Utils(object):
         first_name = x[0].capitalize()
         x = ' '.join([first_name, last_name])
         return x
+
+    ## methode qui permet de concatener plusieurs listes
+    def concatenerPlusieursList(*args):
+        listeGenerale = []
+        for item in args:
+            listeGenerale += item
+        return listeGenerale
+
+    ## Attribuer les éléments d'une liste aléatoirement
+    @classmethod
+    def randomElement(cls, liste):
+        assert isinstance(liste, list)
+        return random.choice(liste)

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 
+from libraries.utils import Utils
 
 BASE_URL = 'DATABASES/data-zIybdmYZoV4QSwgZkFtaB.html'
 
@@ -23,20 +24,18 @@ class HtmlFactory(object):
                       item.find_all('td')
                       for item in tr
                   ][1:]
-        listEmployer = []
-        for item in donneeBrut:
-            donneeEmployer = []
-            for subitem in item:
-                element = subitem.contents
-                el = element[0]
-                donneeEmployer.append(el)
-            employer = {
-                'name': donneeEmployer[0],
-                'phone': donneeEmployer[1],
-                'email': donneeEmployer[2],
-                'adress': "",
-                'latlng': donneeEmployer[3]
+        listeEmployer = [
+            {
+                'name': name.string.strip(),
+                'phone': phone.string.strip(),
+                'email': email.string.strip(),
+                'address': '',
+                'latlng': latlng.string.strip(),
+                'salary': float(salary.string.strip()),
+                'age': int(age.string.strip())
             }
-            listEmployer.append(employer)
+            for (name, phone, email, latlng, salary, age) in donneeBrut
+        ]
+        return listeEmployer
 
-        return listEmployer
+
