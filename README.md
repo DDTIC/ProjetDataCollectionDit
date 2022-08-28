@@ -12,10 +12,6 @@ la partie 'Demarrage du projet'.
    le message ' Uvicorn running on http://127.0.0.1:8000'. Généralement l'adresse est : http://127.0.0.1:8000
    - Ceci affichera la liste des employés dans le navigateur au format JSON.
 
-   installer fastapi avec la commande pip install "fastapi[all]"
-   pour lancer le serveur et tester l'api, saisir dans le terminal :
-   uvicorn employer:app --reload
-
 ### Description de quelques methodes
 
 #### La méthode getDataFileHtml de HtmlFactory
