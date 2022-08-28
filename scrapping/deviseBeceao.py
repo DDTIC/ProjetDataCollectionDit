@@ -1,10 +1,8 @@
-
 import requests
 from bs4 import BeautifulSoup
 
 PATH_URL = 'cours/cours-des-devises-contre-Franc-CFA-appliquer-aux-transferts'
 URL = f'https://www.bceao.int/fr/{PATH_URL}'
-
 
 class DataSouper(object):
     @classmethod
@@ -58,11 +56,13 @@ class CurrencyScrapper(object):
             ]
             return factory
         return None
-
-    @classmethod
+'''
+ @classmethod
     def save(cls, URL, format=None):
         soupering = cls.makeCurrencyList(URL)
         if soupering:
             return soupering
         return None
+'''
+
 

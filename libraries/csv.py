@@ -1,9 +1,7 @@
 import pandas as pd
-
 from .utils import Utils
 
 BASE_URL = 'DATABASES/data-_zJ9Zko2Dh1LYlNNgALKE.csv'
-
 
 class CsvFactory(object):
     @classmethod

@@ -6,36 +6,76 @@ from libraries.dataAll import DataGlobal
 from bd.connexionBd import Connexion
 from bd.traitementBd import EmployerModel
 
-if __name__ == '__main__':
+from fastapi import FastAPI
+
+## Renvoie la liste des employés qui se trouve dans la base de données
+def listeEmployerBD():
 
     ## recupération des données csv, json et html
     dataCsvFactory = CsvFactory.main()
     dataJsonFactory = JsonFactory.main()
     dataHtmlFactory = HtmlFactory.main()
 
-    print(Utils.divider())
     ## concatenation des données csv, json et html
     dataAll = Utils.concatenerPlusieursList(dataCsvFactory, dataJsonFactory, dataHtmlFactory)
-    #print(dataAll)
-    print(Utils.divider())
 
     ## Recuperation des données issu des traitements sous jacents
     dataEmployer = DataGlobal.main(dataAll)
-    print(dataEmployer)
+
+    ## Création de la base de données
+    engine = Connexion.getConnexion()
+
+    ## Creation de la table employe
+    table_employe = EmployerModel.createTable(engine)
+
+    ## Inserer les données dans la table employe
+    EmployerModel.insererListeEmployer(engine, table_employe, dataEmployer)
+
+    ## Recuperer les données de la table employe
+    dataBd = EmployerModel.recupererListeEmploye(engine, table_employe)
+    return dataBd
+
+
+app = FastAPI()
+@app.get("/")
+async def root():
+    return listeEmployerBD()
+
+
+'''
+if __name__ == '__main__':
+
+
+    ## recupération des données csv, json et html
+    dataCsvFactory = CsvFactory.main()
+    dataJsonFactory = JsonFactory.main()
+    dataHtmlFactory = HtmlFactory.main()
+
+    ## concatenation des données csv, json et html
+    dataAll = Utils.concatenerPlusieursList(dataCsvFactory, dataJsonFactory, dataHtmlFactory)
+    #print(dataAll)
+
+    ## Recuperation des données issu des traitements sous jacents
+    dataEmployer = DataGlobal.main(dataAll)
+    #print(dataEmployer)
+
+    ## Création de la base de données
+    engine = Connexion.getConnexion()
+
+    ## Creation de la table employe
+    table_employe = EmployerModel.createTable(engine)
+
+    ## Inserer les données dans la table employe
+    EmployerModel.insererListeEmployer(engine, table_employe, dataEmployer)
+
+    ## Recuperer les données de la table employe
+    dataBd = EmployerModel.recupererListeEmploye(engine, table_employe)
     print(Utils.divider())
-
-    ## Connexion à la base de données
-    conn = Connexion.getConnexion()
-
-    ## Creation de la table employer
-    EmployerModel.createTable(conn)
-
-    ## Inserer les données dans la table employer
-    EmployerModel.inserer(dataEmployer, conn)
-
-    ## Recuperer les données de la table employer
-    dataBd = EmployerModel.recuperer(conn)
-    print(dataBd)
+    #print(dataBd)
     print(Utils.divider())
-    conn.close()
+'''
+
+
+
+
 

@@ -1,9 +1,8 @@
 import random
 
-
 class Utils(object):
     @classmethod
-    def divider(cls, n=54):
+    def divider(cls, n=150):
         return '-' * n
 
     @classmethod
@@ -25,13 +24,14 @@ class Utils(object):
     def concatenerPlusieursList(*args):
         listeGenerale = []
         for item in args:
+            assert isinstance(item, list), 'attention vous devriez passer une liste'
             listeGenerale += item
         return listeGenerale
 
     ## Attribuer les éléments d'une liste aléatoirement
     @classmethod
     def randomElement(cls, liste):
-        assert isinstance(liste, list)
+        assert isinstance(liste, list), 'attention vous devriez passer une liste'
         return random.choice(liste)
 
 

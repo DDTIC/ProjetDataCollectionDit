@@ -1,9 +1,7 @@
 import json
 from .utils import Utils
 
-
 BASE_URL = 'DATABASES/data-zIybdmYZoV4QSwgZkFqvC.json'
-
 
 class JsonFactory(object):
     @classmethod

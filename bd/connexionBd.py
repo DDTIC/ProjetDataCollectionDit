@@ -1,10 +1,9 @@
-#import pymysql as pymysql
-import sqlite3
+from sqlalchemy import create_engine
 
 class Connexion:
     @classmethod
     def getConnexion(cls):
-        ## création de la base de données
-        conn = sqlite3.connect('projetDataCollection.bd')
+        ## Création base de données sqlite
+        engine = create_engine('sqlite:///projetDataCollectionBd.db', echo=False)
 
-        return conn
+        return engine

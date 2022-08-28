@@ -12,7 +12,7 @@ class DataGlobal(object):
     def addDevise(cls, data):
         def devise(x):
             x['devise'] = Utils \
-                    .randomElement(['Euro', 'Dollar us', 'Yen japonais'])
+                    .randomElement(['Euro', 'Dollar us',  'Yen japonais', 'Livre sterling', 'Franc suisse', 'Dollar canadien', 'Yuan chinois', 'Dirham Emirats Arabes Unis'])
             return x
 
         data = map(devise, data)
@@ -28,13 +28,11 @@ class DataGlobal(object):
                         return x
 
         data = map(convEnXOF, data)
-        #data = filter(None, list(data))
         return list(data)
 
     @classmethod
     def addPays(cls, data, liste):
         def pays(x):
-
             country = Utils \
                 .randomElement(liste)
             x['pays'] = country['name']
@@ -51,8 +49,8 @@ class DataGlobal(object):
         listDevise = cls.listDeviseBeceao()
         data = cls.addConversionXof(listDevise, data)
         listeCountries = Country.main()
-
         data = cls.addPays(data, listeCountries)
+
         return data
 
 
